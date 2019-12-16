@@ -1,5 +1,6 @@
 const yargs = require('yargs')
-const myObj = require('./info.js')
+const geocode = require('./utils/geocode.js')
+const forcast = require('./utils/forcast.js')
 
 yargs.command({
     command: 'search',
@@ -12,7 +13,22 @@ yargs.command({
         }
     },
     handler: function(argv){
-        myObj.setAddress(argv.address)
+        geocode(argv.address, (error, data) => {
+            if(error){
+                return console.log(error)
+            }
+
+            console.log(data.location)
+
+            forcast(data.latitude, data.longitude, (error, data) => {
+                if(error){
+                    return console.log(error)
+                }
+                console.log('Temparature ' + data.temperature + ' Degree Celcius')
+                console.log('Weather Condition ' + data.weather)
+                console.log('Rain Possibility ' + data.rainPossibility)
+            })
+        })
     }
 })
 

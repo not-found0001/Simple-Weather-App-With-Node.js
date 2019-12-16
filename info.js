@@ -2,7 +2,7 @@ const request = require('request')
 
 const setAddress = function(Address) {
 
-    const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + Address + '.json?{give your access token}&limit=1'
+    const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + Address + '.json?'
 
     request({url: geocodeURL, json: true}, (error, response) => {
         if(error){
@@ -17,7 +17,7 @@ const setAddress = function(Address) {
 
             console.log(latitude, longitude)
 
-            const darkSkyURL = 'https://api.darksky.net/forecast/{give your access token}/' + latitude + ',' + longitude + '?'
+            const darkSkyURL = 'https://api.darksky.net/forecast//' + latitude + ',' + longitude + '?'
 
             request({url: darkSkyURL, json: true}, (error, response) => {
                 if(error){
