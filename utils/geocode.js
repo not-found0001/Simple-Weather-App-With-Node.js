@@ -4,10 +4,18 @@ const geocode = (address, callback) => {
     const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + address + '.json?access_token=&limit=1'
     request({url, json:true}, (error, response) => {
         if(error){
-            callback('Unable To Connect Weather Service', undefined)
+            callback('Unable To Connect Weather Service', {
+                latitude: undefined,
+                longitude: undefined,
+                location: undefined
+            })
         }
         else if(response.body.features.length === 0){
-            callback('Location Not Found', undefined)
+            callback('Location Not Found', {
+                latitude: undefined,
+                longitude: undefined,
+                location: undefined
+            })
         }
         else{
             callback('', {

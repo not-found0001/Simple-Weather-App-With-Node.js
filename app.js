@@ -13,20 +13,20 @@ yargs.command({
         }
     },
     handler: function(argv){
-        geocode(argv.address, (error, data) => {
+        geocode(argv.address, (error, {latitude, longitude, location}) => {
             if(error){
                 return console.log(error)
             }
 
-            console.log(data.location)
+            console.log('Location : ' + location)
 
-            forcast(data.latitude, data.longitude, (error, data) => {
+            forcast(latitude, longitude, (error, {temperature, weather, rainPossibility}) => {
                 if(error){
                     return console.log(error)
                 }
-                console.log('Temparature ' + data.temperature + ' Degree Celcius')
-                console.log('Weather Condition ' + data.weather)
-                console.log('Rain Possibility ' + data.rainPossibility)
+                console.log('Temparature ' + temperature + ' Degree Celcius')
+                console.log('Weather Condition ' + weather)
+                console.log('Rain Possibility ' + rainPossibility + ' %')
             })
         })
     }
